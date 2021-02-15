@@ -20,9 +20,11 @@ import seaborn as sns
 import warnings ## importing warnings library. 
 warnings.filterwarnings('ignore') ## Ignore warning
 ```
-And we will importing our datasets for training and test.
+## Loading data
+We will import our datasets for training and test.
 ```
 # Import datasets
 train = pd.read_csv("../input/titanic/train.csv")
 test = pd.read_csv("../input/titanic/test.csv")
 ```
+### Take a look at the data!
