@@ -70,3 +70,48 @@ print("Percentage of Pclass = 3 who survived:", train["Survived"][train["Pclass"
 print("Percentage of males who survived:", train["Survived"][train["Sex"] == 'male'].value_counts(normalize = True)[1]*100)
 ```
 As predicted, people with higher socioeconomic class had a higher rate of survival.
+### Feature: Age
+```
+#sort the ages into logical categories
+train["Age"] = train["Age"].fillna(-0.5)
+test["Age"] = test["Age"].fillna(-0.5)
+bins = [-1, 0, 5, 12, 18, 24, 35, 60, np.inf]
+labels = ['Unknown', 'Baby', 'Child', 'Teenager', 'Student', 'Young Adult', 'Adult', 'Senior']
+train['AgeGroup'] = pd.cut(train["Age"], bins, labels = labels)
+test['AgeGroup'] = pd.cut(test["Age"], bins, labels = labels)
+
+#draw a bar plot of Age vs. survival
+sns.barplot(x="AgeGroup", y="Survived", data=train)
+plt.show()
+```
+Babies are more likely to survive than any other age group.
+
+## Cleaning Data :broom:
+We are now ready to clean the data and drop irrelevant features.
+We will start off by dropping the Cabin and Ticket feature since not a lot more useful information can be extracted from them.
+```
+train = train.drop(['Cabin'], axis = 1)
+test = test.drop(['Cabin'], axis = 1)
+train = train.drop(['Ticket'], axis = 1)
+test = test.drop(['Ticket'], axis = 1)
+```
+Consequently, we need to fill the missing values, according to the distribution of the single feature.
+We will start with the Embark feature.
+```
+print("Number of people embarking in Southampton (S):")
+southampton = train[train["Embarked"] == "S"].shape[0]
+print(southampton)
+
+print("Number of people embarking in Cherbourg (C):")
+cherbourg = train[train["Embarked"] == "C"].shape[0]
+print(cherbourg)
+
+print("Number of people embarking in Queenstown (Q):")
+queenstown = train[train["Embarked"] == "Q"].shape[0]
+print(queenstown)
+```
+The majority of people embarked in Southampton (S). We can go ahead and fill in the missing values with the value 'S'.
+```
+#replacing the missing values in the Embarked feature with S
+train = train.fillna({"Embarked": "S"})
+```
