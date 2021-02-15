@@ -21,10 +21,18 @@ import warnings ## importing warnings library.
 warnings.filterwarnings('ignore') ## Ignore warning
 ```
 ## Loading data
-We will import our datasets for training and test. Datasets are taken from Kaggle and they are available for download [here](https://www.kaggle.com/c/titanic/data)
+We will import our datasets for training and test. Datasets are taken from Kaggle and they are available for download [here](https://www.kaggle.com/c/titanic/data).
 ```
 # Import datasets
 train = pd.read_csv("../input/titanic/train.csv")
 test = pd.read_csv("../input/titanic/test.csv")
 ```
 ### Take a look at the data!
+```
+print ("The shape of the train data is (row, column):"+ str(train.shape))
+print (train.info())
+print ("The shape of the test data is (row, column):"+ str(test.shape))
+print (test.info())
+```
+The training set includes our **target variable** (also known as dependent variable), the passenger survival status, along with other independent features like gender, class, fare, etc.
+The test set does not provide passengers survival status. As a matter of fact, *the test set should be used to see how well our model performs on unseen data*, meaning that the  machine learning model have no relation to the test data.
