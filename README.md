@@ -21,7 +21,7 @@ import warnings ## importing warnings library.
 warnings.filterwarnings('ignore') ## Ignore warning
 ```
 ## Loading data
-We will import our datasets for training and test.
+We will import our datasets for training and test. Datasets are taken from Kaggle and they are available for download [here](https://www.kaggle.com/c/titanic/data)
 ```
 # Import datasets
 train = pd.read_csv("../input/titanic/train.csv")
