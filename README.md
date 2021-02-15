@@ -22,7 +22,7 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 ```
-## Loading data
+## Loading data :floppy_disk:	
 We will import our datasets for training and test. Datasets are taken from Kaggle and they are available for download [here](https://www.kaggle.com/c/titanic/data).
 ```
 #import train and test CSV files
