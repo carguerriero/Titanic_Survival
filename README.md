@@ -6,7 +6,7 @@ The objective is to predict survival on the Titanic and get familiar with ML bas
 Knowing from a training set of samples listing passengers who survived or did not survive the Titanic disaster, the scope of our model will be to determine (based on a given test dataset not containing the survival information) if these passengers in the test dataset survived or not.
 
 # 1 - Importing Necessary Libraries and Data
-## Loading libraries
+## Loading libraries :books:
 We will start our Python script by loading the necessary libraries for our project.
 ```
 #data analysis libraries 
@@ -29,7 +29,7 @@ We will import our datasets for training and test. Datasets are taken from Kaggl
 train = pd.read_csv("../input/train.csv")
 test = pd.read_csv("../input/test.csv")
 ```
-### Data Analysis: take a look at the data!
+### Data Analysis: take a look at the data! :mag_right:
 ```
 #take a look at the training data
 train.describe(include="all")
@@ -46,7 +46,7 @@ print(pd.isnull(train).sum())
 The Age feature is missing approximately 19.8% of its values. We can guess that Age is important for survival, so we should probably attempt to fill these gaps.
 The Cabin feature is missing approximately 77.1% of its values. Since so much of the feature is missing, it would be hard to fill in the missing values. We'll probably drop these values from our dataset.
 
-## Data Viz
+## Data Viz :bar_chart:
 ### Feature: Sex
 ```
 #draw a bar plot of survival by sex
@@ -69,3 +69,4 @@ print("Percentage of Pclass = 2 who survived:", train["Survived"][train["Pclass"
 print("Percentage of Pclass = 3 who survived:", train["Survived"][train["Pclass"] == 3].value_counts(normalize = True)[1]*100)
 print("Percentage of males who survived:", train["Survived"][train["Sex"] == 'male'].value_counts(normalize = True)[1]*100)
 ```
+As predicted, people with higher socioeconomic class had a higher rate of survival.
