@@ -29,13 +29,14 @@ We will import our datasets for training and test. Datasets are taken from Kaggl
 train = pd.read_csv("../input/train.csv")
 test = pd.read_csv("../input/test.csv")
 ```
-### Data Analysis: take a look at the data! :mag_right:
+# 2 - Data Analysis 
+## Take a look at the data! :mag_right:
 ```
 #take a look at the training data
 train.describe(include="all")
 ```
-The training set includes our **target variable** (also known as dependent variable), the passenger survival status, along with other independent features like gender, class, fare, etc.
-The test set does not provide passengers survival status. As a matter of fact, *the test set should be used to see how well our model performs on unseen data*, meaning that the  machine learning model have no relation to the test data.
+The training set includes our **target variable** (also known as dependent variable), the passenger survival status, along with other independent features like gender, class, fare, etc.  
+The test set does not provide passengers survival status. As a matter of fact, *the test set should be used to see how well our model performs on unseen data*, meaning that the  machine learning model have no relation to the test data.  
 Having loaded both datasets, we can define **our goal**: we want to find patterns in train.csv that help us predict whether the passengers in test.csv survived.
 ```
 #list of the features within the dataset
@@ -43,7 +44,7 @@ print(train.columns)
 #check for any other unusable values
 print(pd.isnull(train).sum())
 ```
-The Age feature is missing approximately 19.8% of its values. We can guess that Age is important for survival, so we should probably attempt to fill these gaps.
+The Age feature is missing approximately 19.8% of its values. We can guess that Age is important for survival, so we should probably attempt to fill these gaps.  
 The Cabin feature is missing approximately 77.1% of its values. Since so much of the feature is missing, it would be hard to fill in the missing values. We'll probably drop these values from our dataset.
 
 ## Data Viz :bar_chart:
