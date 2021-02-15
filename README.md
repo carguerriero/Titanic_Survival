@@ -16,9 +16,6 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 
 %matplotlib inline
-
-import warnings ## importing warnings library. 
-warnings.filterwarnings('ignore') ## Ignore warning
 ```
 ## Loading data
 We will import our datasets for training and test. Datasets are taken from Kaggle and they are available for download [here](https://www.kaggle.com/c/titanic/data).
