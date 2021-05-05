@@ -116,3 +116,54 @@ The majority of people embarked in Southampton (S). We can go ahead and fill in 
 #replacing the missing values in the Embarked feature with S
 train = train.fillna({"Embarked": "S"})
 ```
+What about Age? A high percentage of values are missing, so we need to fill this gap. Usually, the most common solution would be to replace the missing values with the median for everyone of our passengers in the dataset, but let's try to predict the age for categoryies instead, as differente characteristics would lead to different ages.
+```
+#create a combined group of both datasets
+combine = [train, test]
+
+#extract a title for each Name in the train and test datasets
+for dataset in combine:
+    dataset['Title'] = dataset.Name.str.extract(' ([A-Za-z]+)\.', expand=False)
+
+pd.crosstab(train['Title'], train['Sex'])
+
+#replace various titles with more common names
+for dataset in combine:
+    dataset['Title'] = dataset['Title'].replace(['Lady', 'Capt', 'Col',
+    'Don', 'Dr', 'Major', 'Rev', 'Jonkheer', 'Dona'], 'Rare')
+    
+    dataset['Title'] = dataset['Title'].replace(['Countess', 'Lady', 'Sir'], 'Royal')
+    dataset['Title'] = dataset['Title'].replace('Mlle', 'Miss')
+    dataset['Title'] = dataset['Title'].replace('Ms', 'Miss')
+    dataset['Title'] = dataset['Title'].replace('Mme', 'Mrs')
+
+#map each of the title groups to a numerical value
+title_mapping = {"Mr": 1, "Miss": 2, "Mrs": 3, "Master": 4, "Royal": 5, "Rare": 6}
+for dataset in combine:
+    dataset['Title'] = dataset['Title'].map(title_mapping)
+    dataset['Title'] = dataset['Title'].fillna(0)
+
+train.head()
+train[['Title', 'Survived']].groupby(['Title'], as_index=False).mean()
+```
+Next, we'll try to predict the missing Age values from the most common age for their Title.
+```
+#fill missing age with mode age group for each title
+mr_age = train[train["Title"] == 1]["AgeGroup"].mode() #Young Adult
+miss_age = train[train["Title"] == 2]["AgeGroup"].mode() #Student
+mrs_age = train[train["Title"] == 3]["AgeGroup"].mode() #Adult
+master_age = train[train["Title"] == 4]["AgeGroup"].mode() #Baby
+royal_age = train[train["Title"] == 5]["AgeGroup"].mode() #Adult
+
+rare_age = train[train["Title"] == 6]["AgeGroup"].mode() #Adult
+
+age_title_mapping = {1: "Young Adult", 2: "Student", 3: "Adult", 4: "Baby", 5: "Adult", 6: "Adult"}
+
+for x in range(len(train["AgeGroup"])):
+    if train["AgeGroup"][x] == "Unknown":
+        train["AgeGroup"][x] = age_title_mapping[train["Title"][x]]
+        
+for x in range(len(test["AgeGroup"])):
+    if test["AgeGroup"][x] == "Unknown":
+        test["AgeGroup"][x] = age_title_mapping[test["Title"][x]]
+```
